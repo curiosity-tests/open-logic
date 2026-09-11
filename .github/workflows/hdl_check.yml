@@ -1,5 +1,5 @@
 name: HDL-Check
-run-name: ${{ github.actor }} triggered HDL Check
+run-name: "HDL-Check ${{ inputs.leg || github.event_name }} ${{ inputs.racecar_run }}"
 
 # Set the permissions for the workflow
 permissions:
@@ -12,10 +12,27 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      leg:
+        description: "baseline (uninstrumented) or instrumented (under chalk/curiosity)"
+        type: choice
+        options: [instrumented, baseline]
+        default: baseline
+      profile:
+        description: "CrashOverride chalk profile"
+        type: string
+        default: curiosity-tests-racecar
+      racecar_run:
+        description: "racecar correlation token, echoed into the run name"
+        type: string
+        default: ""
   pull_request:
   schedule:
     - cron: '0 3 * * 1'
   
+
+env:
+  CHALK_ON: ${{ inputs.leg == 'instrumented' }}
 #Jobs  
 jobs:
   simulation-ghdl:
