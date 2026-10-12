@@ -15,8 +15,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '0 3 15 * *'
   
 #Jobs  
 jobs:

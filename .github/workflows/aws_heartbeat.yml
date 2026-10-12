@@ -8,8 +8,6 @@ run-name: ${{ github.actor }} triggered AWS Heartbeat
 #Set Triggers
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 14 * * 3'
   
 #Jobs  
 jobs:
